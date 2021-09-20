@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "blueduck.jellyfishing.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "ArmorFeatureRendererMixin",
+    "FluidBlockMixin",
+    "PistonHandlerMixin",
+    "PlayerEntityMixin",
+    "StructurePoolsMixin",
+    "access.EnchantmentTargetAccess",
+    "access.StructurePoolAccess",
+    "access.VillagerAccess"
+  ],
+  "client": [
+    "HoneyBlockMixin",
+    "ItemRenderMixin"
+  ],
+  "server": [
+    "DrownedEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
