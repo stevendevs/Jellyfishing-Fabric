@@ -2,11 +2,12 @@ package blueduck.jellyfishing.misc;
 
 import blueduck.jellyfishing.registry.JellyfishingEnchantments;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 
 public class AgilityEnchantment extends Enchantment {
     public AgilityEnchantment(Rarity weight, EquipmentSlot[] slots) {
-        super(weight, JellyfishingEnchantments.NET_TARGET, slots);
+        super(weight, EnchantmentTarget.ARMOR, slots);
     }
 
     @Override

@@ -25,11 +25,11 @@ public abstract class FluidBlockMixin {
     @Inject(method = "receiveNeighborFluids", at = @At("RETURN"), cancellable = true)
     private void receiveNeighborFluids(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (this.fluid.isIn(FluidTags.LAVA)) {
-            boolean jelly = world.getBlockState(pos.down()).isOf(JellyfishingBlocks.JELLY_BLOCK);
-            Direction[] directions = Direction.values();
+            var jelly = world.getBlockState(pos.down()).isOf(JellyfishingBlocks.JELLY_BLOCK);
+            var directions = Direction.values();
             for (Direction direction : directions) {
                 if (direction != Direction.DOWN) {
-                    BlockPos pos2 = pos.offset(direction);
+                    var pos2 = pos.offset(direction);
                     if (jelly && world.getFluidState(pos2).isIn(FluidTags.WATER)) {
                         world.setBlockState(pos, JellyfishingBlocks.CORALSTONE.getDefaultState());
                         this.playExtinguishSound(world, pos);

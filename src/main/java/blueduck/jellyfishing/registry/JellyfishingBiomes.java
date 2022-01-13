@@ -60,12 +60,10 @@ public class JellyfishingBiomes {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, JellyfishingConfiguredFeatures.CONFIGURED_SEANUT_BUSH);
         builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, JellyfishingConfiguredFeatures.CONFIGURED_CORALSTONE_REPLACEMENT);
 
-        /*
-        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_CORAL_PLANT);
-        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_TUBE_PLANT);
-        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_SEANUT_BUSH);
-        builder.feature(6, () -> JellyfishingConfiguredFeatures.CONFIGURED_CORALSTONE_REPLACEMENT);
-         */
+//        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_CORAL_PLANT);
+//        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_TUBE_PLANT);
+//        builder.feature(8, () -> JellyfishingConfiguredFeatures.CONFIGURED_SEANUT_BUSH);
+//        builder.feature(6, () -> JellyfishingConfiguredFeatures.CONFIGURED_CORALSTONE_REPLACEMENT);
 
         spawns.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(JellyfishingEntities.JELLYFISH, 1000, 1, 1));
         spawns.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(JellyfishingEntities.BLUE_JELLYFISH, 100, 1, 1));

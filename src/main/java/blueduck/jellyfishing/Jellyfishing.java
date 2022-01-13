@@ -2,6 +2,7 @@ package blueduck.jellyfishing;
 
 import blueduck.jellyfishing.entities.AbstractJellyfishEntity;
 import blueduck.jellyfishing.misc.JellyfishingSellItemFactory;
+import blueduck.jellyfishing.misc.config.JellyfishingClientConfig;
 import blueduck.jellyfishing.misc.config.JellyfishingConfig;
 import blueduck.jellyfishing.mixin.access.VillagerAccess;
 import blueduck.jellyfishing.registry.*;
@@ -31,6 +32,8 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraftforge.api.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,10 +47,12 @@ public class Jellyfishing implements ModInitializer {
     public static final String MOD_ID = "jellyfishing";
     public static final String MOD_NAME = "Jellyfishing";
 
-    public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
+//    public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
 
     public void onInitialize() {
-        JellyfishingConfig.init();
+        ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.COMMON, JellyfishingConfig.COMMON_CONFIG);
+        ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.CLIENT, JellyfishingConfig.CLIENT_CONFIG);
+//        JellyfishingConfig.init();
         Reflection.initialize(
                 JellyfishingBiomes.class,
                 JellyfishingBlocks.class,

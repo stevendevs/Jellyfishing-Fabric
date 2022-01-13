@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 import java.util.Set;
 
-@Mixin(VillagerEntity.class)
 @SuppressWarnings({"unused"})
+@Mixin(VillagerEntity.class)
 public interface VillagerAccess {
     @Mutable
     @Accessor("GATHERABLE_ITEMS")

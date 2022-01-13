@@ -30,12 +30,12 @@ public class JellyfishingItems {
     public static final Item TRIPLE_GOOBERBERRY_SUNRISE = HELPER.createItem("triple_gooberberry_sunrise", new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(10).saturationModifier(0.6F).snack().build())));
     public static final Item KELP_SHAKE = HELPER.createItem("kelp_shake", new KelpShakeItem(new FabricItemSettings().group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.2F).build())));
     public static final Item KRABBY_PATTY = HELPER.createItem("krabby_patty", new Item(new FabricItemSettings().group(ItemGroup.FOOD).food(new FoodComponent.Builder().hunger(10).saturationModifier(1.5F).meat().build()).rarity(Rarity.RARE)));
-    public static final Item PINEAPPLE_SEEDS = HELPER.createItem("pineapple_seeds", new AliasedBlockItem(JellyfishingBlocks.PINEAPPLE_PLANT, (new Item.Settings()).group(ItemGroup.MATERIALS)));
     public static final Item PINEAPPLE = HELPER.createItem("pineapple", new Item(new FabricItemSettings().group(ItemGroup.MATERIALS).food(new FoodComponent.Builder().hunger(4).saturationModifier(0.3F).build())));
 
     // Materials //
     public static final Item JELLYFISH = HELPER.createItem("jellyfish", new JellyfishItem(new FabricItemSettings().group(ItemGroup.MATERIALS),  JellyfishingEntities.JELLYFISH));
     public static final Item BLUE_JELLYFISH = HELPER.createItem("blue_jellyfish", new JellyfishItem(new FabricItemSettings().group(ItemGroup.MATERIALS),  JellyfishingEntities.BLUE_JELLYFISH));
+    public static final Item PINEAPPLE_SEEDS = HELPER.createItem("pineapple_seeds", new AliasedBlockItem(JellyfishingBlocks.PINEAPPLE_PLANT, (new Item.Settings()).group(ItemGroup.MATERIALS)));
 
     // Combat //
     public static final Item SPATULA = HELPER.createItem("spatula", new SpatulaItem(new FabricItemSettings().maxDamage(250).group(ItemGroup.COMBAT), JellyfishingConfig.get().attackDamages.spatula_damage - 3, -2, ToolMaterials.IRON));

@@ -2,11 +2,12 @@ package blueduck.jellyfishing.misc;
 
 import blueduck.jellyfishing.registry.JellyfishingEnchantments;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 
 public class PlunderingEnchantment extends Enchantment {
     public PlunderingEnchantment(Rarity weight, EquipmentSlot[] slotTypes) {
-        super(weight, JellyfishingEnchantments.NET_TARGET, slotTypes);
+        super(weight, EnchantmentTarget.ARMOR, slotTypes);
     }
 
     @Override

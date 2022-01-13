@@ -1,70 +1,74 @@
 package blueduck.jellyfishing.misc.config;
 
-import blueduck.jellyfishing.Jellyfishing;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.Config.Gui.Background;
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import net.minecraftforge.common.ForgeConfigSpec;
 
-@Config(name = Jellyfishing.MOD_ID)
-@Background(value = Jellyfishing.MOD_ID + ":textures/block/blue_bamboo_wall.png")
-public class JellyfishingConfig implements ConfigData {
-    @Comment("Should Caught and Released Jellyfish sting?")
-    public Boolean caught_jellyfish_sting = false;
-    @Comment("Biome Weight of Jellyfish Fields\n" + "\tRange: 1 ~ 100")
-    public Integer jellyfish_fields_weight = 2;
-    @Comment("Should Jellyfish be fishable with a fishing rod?")
-    public Boolean jellyfish_fishable = true;
-    @Comment("Should Jellyfish Nets be fishable with a fishing rod?")
-    public Boolean nets_fishable = true;
-    @Comment("Should Jellyfish sting?")
-    public Boolean jellyfish_sting = true;
+public class JellyfishingConfig {
+    public static ForgeConfigSpec COMMON_CONFIG;
+    public static ForgeConfigSpec CLIENT_CONFIG;
+    public static final String CATEGORY_SETTINGS = "general";
 
-    @CollapsibleObject
-    public BiomeOptions biome = new BiomeOptions();
-    @CollapsibleObject
-    public AttackDamageOptions attackDamages = new AttackDamageOptions();
-    @CollapsibleObject
-    public OptimizationOptions optimization = new OptimizationOptions();
-    @CollapsibleObject
-    public Client client = new Client();
+    public static ForgeConfigSpec.ConfigValue<Integer> BIOME_WEIGHT;
+    public static ForgeConfigSpec.ConfigValue<Boolean> JELLYFISH_STING;
+    public static ForgeConfigSpec.ConfigValue<Boolean> CAUGHT_JELLYFISH_STING;
+    public static ForgeConfigSpec.ConfigValue<Boolean> JELLYFISH_FISHABLE;
+    public static ForgeConfigSpec.ConfigValue<Boolean> NETS_FISHABLE;
 
-    public static class BiomeOptions {
-        @Comment("Enable Flower Clouds?")
-        public Boolean flower_clouds = true;
-    }
+    public static ForgeConfigSpec.ConfigValue<Integer> SPATULA_DAMAGE;
+    public static ForgeConfigSpec.ConfigValue<Integer> GOLDEN_SPATULA_DAMAGE;
+    public static ForgeConfigSpec.ConfigValue<Integer> KARATE_DAMAGE;
+    public static ForgeConfigSpec.ConfigValue<Integer> MASTER_KARATE_DAMAGE;
+    public static ForgeConfigSpec.ConfigValue<Integer> POWER_KARATE_DAMAGE;
 
-    public static class AttackDamageOptions {
-        @Comment("Damage of the Spatula\n" + "\t\tRange: 1 ~ 1000")
-        public Integer spatula_damage = 6;
-        @Comment("Damage of the Master Karate Glove\n" + "\t\tRange: 1 ~ 1000")
-        public Integer master_karate_damage = 5;
-        @Comment("Damage of the Power Karate Glove\n" + "\t\tRange: 1 ~ 1000")
-        public Integer power_karate_damage = 18;
-        @Comment("Damage of the Golden Spatula\n" + "\t\tRange: 1 ~ 1000")
-        public Integer golden_spatula_damage = 8;
-        @Comment("Damage of the Karate Glove\n" + "\t\tRange: 1 ~ 1000")
-        public Integer karate_damage = 3;
-    }
+    public static ForgeConfigSpec.ConfigValue<Boolean> FLOWER_CLOUDS;
 
-    public static class OptimizationOptions {
-        @Comment("With this enabled, right clicking will produce a few of the jellyfish's jelly item and destroy the jellyfish item")
-        public Boolean no_place_jellyfish = false;
-    }
+    public static ForgeConfigSpec.ConfigValue<Boolean> NOPLACE_JELLYFISH;
 
-    public static class Client {
-        @Comment("Enable custom music in the Jellyfish Fields?")
-        public Boolean music = true;
-    }
+    public static ForgeConfigSpec.ConfigValue<Boolean> MUSIC;
 
-    public static void init() {
-        AutoConfig.register(JellyfishingConfig.class, GsonConfigSerializer::new);
-    }
+    static {
+        ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
+        ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
-    public static JellyfishingConfig get() {
-        return AutoConfig.getConfigHolder(JellyfishingConfig.class).getConfig();
+        COMMON_BUILDER.push(CATEGORY_SETTINGS);
+        BIOME_WEIGHT = CLIENT_BUILDER.comment("Biome Weight of Jellyfish Fields")
+                .defineInRange("jellyfish_fields_weight", 6, 1, 100);
+        JELLYFISH_STING = CLIENT_BUILDER.comment("Should Jellyfish sting?")
+                .define("jellyfish_sting", true, o -> o instanceof Boolean);
+        CAUGHT_JELLYFISH_STING = CLIENT_BUILDER.comment("Should Caught and Released Jellyfish sting?")
+                .define("caught_jellyfish_sting", false, o -> o instanceof Boolean);
+        JELLYFISH_FISHABLE = CLIENT_BUILDER.comment("Should Jellyfish be fishable with a fishing rod?")
+                .define("jellyfish_fishable", true, o -> o instanceof Boolean);
+        NETS_FISHABLE  = CLIENT_BUILDER.comment("Should Jellyfish Nets be fishable with a fishing rod?")
+                .define("nets_fishable", true, (o) -> o instanceof Boolean);
+        COMMON_BUILDER.push("Attack Damages");
+        SPATULA_DAMAGE = CLIENT_BUILDER.comment("Damage of the Spatula")
+                .defineInRange("spatula_damage", 4, 1, 1000);
+        GOLDEN_SPATULA_DAMAGE = CLIENT_BUILDER.comment("Damage of the Golden Spatula")
+                .defineInRange("golden_spatula_damage", 6, 1, 1000);
+        KARATE_DAMAGE = CLIENT_BUILDER.comment("Damage of the Karate Glove")
+                .defineInRange("karate_damage", 3, 1, 1000);
+        MASTER_KARATE_DAMAGE = CLIENT_BUILDER.comment("Damage of the Master Karate Glove")
+                .defineInRange("master_karate_damage", 5, 1, 1000);
+        POWER_KARATE_DAMAGE = CLIENT_BUILDER.comment("Damage of the Power Karate Glove")
+                .defineInRange("power_karate_damage", 18, 1, 1000);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push("Biome");
+        FLOWER_CLOUDS  = CLIENT_BUILDER.comment("Enable Flower Clouds?")
+                .define("flower_clouds", true, o -> o instanceof Boolean);
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.push("Optimization");
+        NOPLACE_JELLYFISH  = CLIENT_BUILDER.comment("Should Jellyfish be non-placeable? (Useful for servers as it will prevent entity lag from placed jellyfish)")
+                .comment("With this enabled, right clicking will produce a few of the jellyfish's jelly item and destroy the jellyfish item")
+                .define("no_place_jellyfish", false, o -> o instanceof Boolean);
+
+        COMMON_BUILDER.pop();
+        COMMON_CONFIG = COMMON_BUILDER.build();
+
+
+        CLIENT_BUILDER.push(CATEGORY_SETTINGS);
+        MUSIC = CLIENT_BUILDER.comment("Enable custom music in the Jellyfish Fields?")
+                .define("music", true, o -> o instanceof Boolean);
+        CLIENT_BUILDER.pop();
+        CLIENT_CONFIG = CLIENT_BUILDER.build();
     }
 }

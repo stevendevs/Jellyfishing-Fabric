@@ -21,19 +21,19 @@ public abstract class HoneyBlockMixin extends Block {
         super(settings);
     }
 
-    @Inject(method = "addRegularParticles", at = @At("HEAD"), cancellable = true)
-    private static void addRegularParticles(Entity entity, CallbackInfo ci) {
-        if (entity.getBlockStateAtPos().getBlock() == JellyfishingBlocks.JELLY_BLOCK) {
-            addJellyParticles(entity, 5, ci);
-        }
-    }
-
-    @Inject(method = "addRichParticles", at = @At("HEAD"), cancellable = true)
-    private static void addRichParticles(Entity entity, CallbackInfo ci) {
-        if (entity.getBlockStateAtPos().getBlock() == JellyfishingBlocks.JELLY_BLOCK) {
-            addJellyParticles(entity, 5, ci);
-        }
-    }
+//    @Inject(method = "addRegularParticles", at = @At("HEAD"), cancellable = true)
+//    private static void addRegularParticles(Entity entity, CallbackInfo ci) {
+//        if (entity.getBlockStateAtPos().getBlock() == JellyfishingBlocks.JELLY_BLOCK) {
+//            addJellyParticles(entity, 5, ci);
+//        }
+//    }
+//
+//    @Inject(method = "addRichParticles", at = @At("HEAD"), cancellable = true)
+//    private static void addRichParticles(Entity entity, CallbackInfo ci) {
+//        if (entity.getBlockStateAtPos().getBlock() == JellyfishingBlocks.JELLY_BLOCK) {
+//            addJellyParticles(entity, 5, ci);
+//        }
+//    }
 
     @Inject(method = "addParticles", at = @At("HEAD"), cancellable = true)
     private static void addJellyParticles(Entity entity, int count, CallbackInfo ci) {

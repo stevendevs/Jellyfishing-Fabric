@@ -21,11 +21,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        updateDiverSuit();
-        updateKelpMustache();
-        updateSandySuit();
+//        updateDiverSuit();
+//        updateKelpMustache();
+//        updateSandySuit();
     }
 
     private void updateDiverSuit() {

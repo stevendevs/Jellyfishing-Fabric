@@ -40,10 +40,8 @@
     ],
     "server": [],
     "modmenu": [
-      "blueduck.jellyfishing.misc.config.JellyfishingModMenuCompat"
     ],
     "mm:early_risers": [
-      "blueduck.jellyfishing.registry.JellyfishingEnchantments"
     ]
   },
   "mixins": [
@@ -51,9 +49,9 @@
   ],
   "accessWidener" : "jellyfishing.accesswidener",
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.12.0",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "minecraft": "1.18.x",
+    "java": ">=17"
   }
 }

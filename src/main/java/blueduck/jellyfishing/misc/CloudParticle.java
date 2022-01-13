@@ -7,21 +7,19 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-//TODO
 public class CloudParticle extends SpriteBillboardParticle {
     private double posX, posY, posZ;
 
-    public CloudParticle(World world, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-        super((ClientWorld) world, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+    public CloudParticle(World world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+        super((ClientWorld) world, x, y, z, velocityX, velocityY, velocityZ);
 
         this.velocityX = 0.1f * (this.random.nextFloat()) - 0.05f + 2;
         this.velocityY = 0.1f * (this.random.nextFloat()) - 0.05f;
         this.velocityZ = 0.1f * (this.random.nextFloat()) - 0.05f;
-        this.posX = xCoordIn;
-        this.posY = yCoordIn;
-        this.posZ = zCoordIn;
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
         this.scale = 10f * (this.random.nextFloat() * 0.5f + 1.7f);
         this.colorRed = .5F;
         this.colorGreen = .5F;
