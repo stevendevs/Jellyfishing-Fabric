@@ -13,12 +13,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.tick.OrderedTick;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"deprecation"})
 public class WaterloggableDirectionalBlock extends HorizontalFacingBlock implements Waterloggable {
-    public static final BooleanProperty WATERLOGGED;
-    public static final VoxelShape SHAPE;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16D, 11.0D, 16.0D);
 
     public WaterloggableDirectionalBlock(Settings settings) {
         super(settings);
@@ -45,19 +46,13 @@ public class WaterloggableDirectionalBlock extends HorizontalFacingBlock impleme
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-
         return !this.canPlaceAt(state, world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
-    }
-
-    static {
-        WATERLOGGED = Properties.WATERLOGGED;
-        SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16D, 11.0D, 16.0D);
     }
 }

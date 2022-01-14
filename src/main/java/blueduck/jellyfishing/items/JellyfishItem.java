@@ -45,7 +45,7 @@ public class JellyfishItem extends Item {
                 return stack;
             }
         };
-        if (!JellyfishingConfig.get().optimization.no_place_jellyfish) {
+        if (!JellyfishingConfig.NOPLACE_JELLYFISH.get()) {
             DispenserBlock.registerBehavior(this, fallibleItemDispenserBehavior);
         }
     }
@@ -55,7 +55,7 @@ public class JellyfishItem extends Item {
         var world = context.getWorld();
         var player = context.getPlayer();
         var hand = context.getHand();
-        if (world.isClient || JellyfishingConfig.get().optimization.no_place_jellyfish) {
+        if (world.isClient || JellyfishingConfig.NOPLACE_JELLYFISH.get()) {
             AbstractJellyfishEntity entity = (AbstractJellyfishEntity) this.entityType.create(world);
             assert player != null;
             assert entity != null;
@@ -91,7 +91,7 @@ public class JellyfishItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if (JellyfishingConfig.get().optimization.no_place_jellyfish) {
+        if (JellyfishingConfig.NOPLACE_JELLYFISH.get()) {
             var entity = (AbstractJellyfishEntity) this.entityType.create(world);
             assert entity != null;
             player.dropStack(new ItemStack(entity.getJellyItem(), world.getRandom().nextInt(3) + 2), 0F);

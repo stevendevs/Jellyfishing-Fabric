@@ -26,8 +26,8 @@ public class AirSuitRenderer implements ArmorRenderer {
             airSuitModel = new AirSuitModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(JellyfishingClient.AIR_SUIT_LAYER));
         }
         contextModel.setAttributes(airSuitModel);
-        airSuitModel.setVisible(false);
-        airSuitModel.head.visible = slot == EquipmentSlot.HEAD;
+//        airSuitModel.setVisible(false);
+//        airSuitModel.head.visible = slot == EquipmentSlot.HEAD;
         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, airSuitModel, TEXTURE);
     }
 }

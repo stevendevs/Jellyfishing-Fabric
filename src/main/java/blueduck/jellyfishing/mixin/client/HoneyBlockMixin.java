@@ -1,4 +1,4 @@
-package blueduck.jellyfishing.mixin;
+package blueduck.jellyfishing.mixin.client;
 
 import blueduck.jellyfishing.registry.JellyfishingBlocks;
 import net.fabricmc.api.EnvType;

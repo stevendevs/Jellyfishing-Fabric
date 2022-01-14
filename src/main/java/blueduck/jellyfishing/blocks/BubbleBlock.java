@@ -6,6 +6,7 @@ import net.minecraft.block.TransparentBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.OrderedTick;
 
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class BubbleBlock extends TransparentBlock {
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         super.onBlockAdded(state, world, pos, oldState, notify);
-        world.getBlockTickScheduler().schedule(pos, this, 400);
+        world.createAndScheduleBlockTick(pos, this, 400);
     }
 
     @Override

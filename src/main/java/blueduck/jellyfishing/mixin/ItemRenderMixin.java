@@ -22,29 +22,29 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Environment(EnvType.CLIENT)
 @Mixin(ItemRenderer.class)
 public abstract class ItemRenderMixin {
-    @Shadow @Final private ItemModels models;
-    @Shadow public abstract BakedModel getHeldItemModel(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity, int seed);
-
-    @Redirect(method = "innerRenderInGui(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;IIII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemRenderer;getHeldItemModel(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;I)Lnet/minecraft/client/render/model/BakedModel;"))
-    public BakedModel getPerspectiveGuiModel(ItemRenderer itemRenderer, ItemStack stack, World world, LivingEntity entity, int seed) {
-        if (ClientUtil.tridentPerspectiveItemList.contains(stack.getItem()) || ClientUtil.leftRightPerspectiveItemList.contains(stack.getItem())) {
-            var guiId = new ModelIdentifier(Registry.ITEM.getId(stack.getItem()), "inventory");
-            var clientWorld = world instanceof ClientWorld ? (ClientWorld) world : null;
-            var model = models.getModelManager().getModel(guiId);
-            var model2 = model.getOverrides().apply(model, stack, clientWorld, entity, seed);
-            return model2 == null ? models.getModelManager().getMissingModel() : model2;
-        }
-        return this.getHeldItemModel(stack, world, entity, seed);
-    }
-
-    @Redirect(method = "getHeldItemModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"))
-    public BakedModel getTridentPerspectiveInHandModel(ItemModels itemModels, ItemStack stack) {
-        if (ClientUtil.tridentPerspectiveItemList.contains(stack.getItem())) {
-            var invID = new ModelIdentifier(Registry.ITEM.getId(stack.getItem()) + "_in_hand", "inventory");
-            return itemModels.getModelManager().getModel(invID);
-        }
-        return itemModels.getModel(stack);
-    }
+//    @Shadow @Final private ItemModels models;
+//    @Shadow public abstract BakedModel getHeldItemModel(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity, int seed);
+//
+//    @Redirect(method = "innerRenderInGui(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;IIII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemRenderer;getHeldItemModel(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;I)Lnet/minecraft/client/render/model/BakedModel;"))
+//    public BakedModel getPerspectiveGuiModel(ItemRenderer itemRenderer, ItemStack stack, World world, LivingEntity entity, int seed) {
+//        if (ClientUtil.tridentPerspectiveItemList.contains(stack.getItem()) || ClientUtil.leftRightPerspectiveItemList.contains(stack.getItem())) {
+//            var guiId = new ModelIdentifier(Registry.ITEM.getId(stack.getItem()), "inventory");
+//            var clientWorld = world instanceof ClientWorld ? (ClientWorld) world : null;
+//            var model = models.getModelManager().getModel(guiId);
+//            var model2 = model.getOverrides().apply(model, stack, clientWorld, entity, seed);
+//            return model2 == null ? models.getModelManager().getMissingModel() : model2;
+//        }
+//        return this.getHeldItemModel(stack, world, entity, seed);
+//    }
+//
+//    @Redirect(method = "getHeldItemModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"))
+//    public BakedModel getTridentPerspectiveInHandModel(ItemModels itemModels, ItemStack stack) {
+//        if (ClientUtil.tridentPerspectiveItemList.contains(stack.getItem())) {
+//            var invID = new ModelIdentifier(Registry.ITEM.getId(stack.getItem()) + "_in_hand", "inventory");
+//            return itemModels.getModelManager().getModel(invID);
+//        }
+//        return itemModels.getModel(stack);
+//    }
 
 //    //Lnet/minecraft/client/render/model/json/ModelTransformation/Mode;
 //    @Redirect(method = "getHeldItemModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"))

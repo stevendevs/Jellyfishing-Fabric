@@ -162,10 +162,10 @@ public class AbstractJellyfishEntity extends FishEntity implements Bucketable {
     }
 
     public void onCollideWithPlayer(PlayerEntity entityIn) {
-        if ((!this.canImmediatelyDespawn(1) && !(JellyfishingConfig.get().caught_jellyfish_sting)) || JellyfishingItems.hasAllSuitPieces(entityIn)) {
+        if ((!this.canImmediatelyDespawn(1) && !(JellyfishingConfig.CAUGHT_JELLYFISH_STING.get())) || JellyfishingItems.hasAllSuitPieces(entityIn)) {
             return;
         }
-        if (canThisEntitySting && stingCounter == 0 && this.isTouchingWater() && JellyfishingConfig.get().jellyfish_sting && !entityIn.getEntityWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
+        if (canThisEntitySting && stingCounter == 0 && this.isTouchingWater() && JellyfishingConfig.JELLYFISH_STING.get() && !entityIn.getEntityWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
             stingCounter = stingTime;
             if (this.getEntityWorld().getRandom().nextDouble() < stingChance) {
                 entityIn.damage(JELLYFISH_STING, stingDmg);

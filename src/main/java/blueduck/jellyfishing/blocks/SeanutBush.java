@@ -27,6 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.tick.OrderedTick;
 
 @SuppressWarnings({"deprecation"})
 public class SeanutBush extends SweetBerryBushBlock implements Waterloggable {
@@ -84,7 +85,7 @@ public class SeanutBush extends SweetBerryBushBlock implements Waterloggable {
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         BlockState blockstate = super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
         if (!blockstate.isAir()) {
-            world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         return blockstate;

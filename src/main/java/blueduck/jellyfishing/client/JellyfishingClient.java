@@ -69,7 +69,7 @@ public class JellyfishingClient implements ClientModInitializer {
         //register(PATTY_WAGON_LAYER, PattyWagonModel::getTexturedModelData);
         register(AIR_SUIT_LAYER, AirSuitModel::getTexturedModelData);
 
-//        ArmorRenderer.register(new AirSuitRenderer(), JellyfishingItems.AIR_SUIT_HELMET);
+        ArmorRenderer.register(new AirSuitRenderer(), JellyfishingItems.AIR_SUIT_HELMET, JellyfishingItems.AIR_SUIT_CHESTPLATE, JellyfishingItems.AIR_SUIT_LEGGINGS, JellyfishingItems.AIR_SUIT_BOOTS);
     }
 
     private static EntityModelLayer registerMain(String id) {

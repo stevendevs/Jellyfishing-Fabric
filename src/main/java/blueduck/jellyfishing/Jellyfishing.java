@@ -2,18 +2,14 @@ package blueduck.jellyfishing;
 
 import blueduck.jellyfishing.entities.AbstractJellyfishEntity;
 import blueduck.jellyfishing.misc.JellyfishingSellItemFactory;
-import blueduck.jellyfishing.misc.config.JellyfishingClientConfig;
 import blueduck.jellyfishing.misc.config.JellyfishingConfig;
 import blueduck.jellyfishing.mixin.access.VillagerAccess;
 import blueduck.jellyfishing.registry.*;
-import co.eltrut.differentiate.core.registrator.Registrator;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.Reflection;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -29,9 +25,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraftforge.api.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.Level;
@@ -47,14 +41,14 @@ public class Jellyfishing implements ModInitializer {
     public static final String MOD_ID = "jellyfishing";
     public static final String MOD_NAME = "Jellyfishing";
 
-//    public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
-
+    @Override
+    @SuppressWarnings("UnstableApiUsage")
     public void onInitialize() {
         ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.COMMON, JellyfishingConfig.COMMON_CONFIG);
         ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.CLIENT, JellyfishingConfig.CLIENT_CONFIG);
-//        JellyfishingConfig.init();
+
         Reflection.initialize(
-                JellyfishingBiomes.class,
+//                JellyfishingBiomes.class,
                 JellyfishingBlocks.class,
                 JellyfishingConfiguredFeatures.class,
                 JellyfishingEntities.class,
@@ -67,7 +61,7 @@ public class Jellyfishing implements ModInitializer {
                 JellyfishingVillagers.class
         );
         JellyfishingEntities.init();
-        JellyfishingBiomes.init();
+//        JellyfishingBiomes.init();
         JellyfishingPaintings.init();
         JellyfishingVillagers.init();
 
@@ -105,7 +99,7 @@ public class Jellyfishing implements ModInitializer {
 
         JellyfishingBlocks.registerFlammables();
         JellyfishingItems.registerCompostables();
-        JellyfishingConfiguredFeatures.registerConfiguredFeatures();
+//        JellyfishingConfiguredFeatures.registerConfiguredFeatures();
         LootEvents.onBiomeLoad();
         LootEvents.registerLootTables();
         LootEvents.villagerTrades();
@@ -114,13 +108,13 @@ public class Jellyfishing implements ModInitializer {
         log(Level.INFO, "Jellylizing");
     }
 
-    public static RegistryKey<ConfiguredFeature<?, ?>> rk(ConfiguredFeature carver) {
-        return BuiltinRegistries.CONFIGURED_FEATURE.getKey(carver).get();
+    public static RegistryKey<PlacedFeature> rk(PlacedFeature placedFeature) {
+        return BuiltinRegistries.PLACED_FEATURE.getKey(placedFeature).get();
     }
 
     public static class LootEvents {
         public static void onBiomeLoad() {
-            BiomeModifications.addFeature(BiomeSelectors.categories(Biome.Category.JUNGLE), GenerationStep.Feature.VEGETAL_DECORATION, rk(JellyfishingConfiguredFeatures.CONFIGURED_PINEAPPLE_PLANT_PATCH));
+//            BiomeModifications.addFeature(BiomeSelectors.categories(Biome.Category.JUNGLE), GenerationStep.Feature.VEGETAL_DECORATION, rk(JellyfishingConfiguredFeatures.CONFIGURED_PINEAPPLE_PLANT_PATCH));
         }
 
         public static void registerLootTables() {
@@ -148,10 +142,10 @@ public class Jellyfishing implements ModInitializer {
                 }
 
                 if (LootTables.FISHING_GAMEPLAY == id) {
-                    if (JellyfishingConfig.get().jellyfish_fishable) {
+                    if (JellyfishingConfig.JELLYFISH_FISHABLE.get()) {
                         supplier.withPool(LootPool.builder().with(LootTableEntry.builder(id("gameplay/fishing/fish")).weight(10).quality(1)).build());
                     }
-                    if (JellyfishingConfig.get().nets_fishable) {
+                    if (JellyfishingConfig.NETS_FISHABLE.get()) {
                         supplier.withPool(LootPool.builder().with(LootTableEntry.builder(id("gameplay/fishing/treasure_net")).weight(3).quality(1)).build());
                     }
                     supplier.withPool(LootPool.builder().with(LootTableEntry.builder(id("gameplay/fishing/junk_plants")).weight(1).quality(-2)).build());
@@ -177,14 +171,14 @@ public class Jellyfishing implements ModInitializer {
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 7, JellyfishingItems.JELLYFISH, 1, 3, 10, 0.05F)));
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 9, JellyfishingItems.BLUE_JELLYFISH, 1, 3, 10, 0.05F)));
 
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 2, JellyfishingBlocks.CORAL_PLANT_ITEM, 3, 5, 10, 0.05F)));
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 2, JellyfishingBlocks.TUBE_PLANT_ITEM, 2, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 2, JellyfishingBlocks.CORAL_PLANT.asItem(), 3, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 2, JellyfishingBlocks.TUBE_PLANT.asItem(), 2, 5, 10, 0.05F)));
 
             // MASON //
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 1, JellyfishingBlocks.POLISHED_CORALSTONE_ITEM, 4, 5, 10, 0.05F)));
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 1, JellyfishingBlocks.CORALSTONE_ITEM, 8, 5, 10, 0.05F)));
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(JellyfishingBlocks.CORALSTONE_ITEM, 16, Items.EMERALD, 1, 5, 10, 0.05F)));
-            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 4, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(JellyfishingBlocks.CORALSTONE_ITEM, 8, Items.EMERALD, 1, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 1, JellyfishingBlocks.POLISHED_CORALSTONE.asItem(), 4, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(Items.EMERALD, 1, JellyfishingBlocks.CORALSTONE.asItem(), 8, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 3, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(JellyfishingBlocks.CORALSTONE.asItem(), 16, Items.EMERALD, 1, 5, 10, 0.05F)));
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 4, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(JellyfishingBlocks.CORALSTONE.asItem(), 8, Items.EMERALD, 1, 5, 10, 0.05F)));
 
             // CLERIC //
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.CLERIC, 2, factories -> factories.add(new JellyfishingSellItemFactory.SellItemFactory(JellyfishingItems.JELLYFISH_JELLY, 4, Items.EMERALD, 1, 8, 10, 0.05F)));

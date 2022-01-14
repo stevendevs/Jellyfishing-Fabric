@@ -1,5 +1,6 @@
 package blueduck.jellyfishing.items;
 
+import blueduck.jellyfishing.Jellyfishing;
 import blueduck.jellyfishing.registry.JellyfishingSounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,7 +44,7 @@ public class SuitMaterial implements ArmorMaterial {
     @Override
     @Environment(EnvType.CLIENT)
     public String getName() {
-        return "suit";
+        return Jellyfishing.id("air_suit").toString();
     }
 
     @Override
