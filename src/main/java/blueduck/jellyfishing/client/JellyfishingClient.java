@@ -19,8 +19,15 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.Dilation;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class JellyfishingClient implements ClientModInitializer {
 //    private static final AirSuitModel airSuitModel = new AirSuitModel(SandySuitRenderer.ctx.getPart(JellyfishingClient.AIR_SUIT_LAYER), 1.0f);
@@ -83,4 +90,12 @@ public class JellyfishingClient implements ClientModInitializer {
     private static void register(EntityModelLayer layer, EntityModelLayerRegistry.TexturedModelDataProvider provider) {
         EntityModelLayerRegistry.registerModelLayer(layer, provider);
     }
+
+//    private static final AirSuitModel airSuitModel = new AirSuitModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(JellyfishingClient.AIR_SUIT_LAYER),new Dilation(1.0f));
+//    private static final AirSuitModel airSuitLegs = new AirSuitModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(JellyfishingClient.AIR_SUIT_LAYER),new Dilation(0.5f));
+//
+//    public static <A extends BipedEntityModel<?>> A getArmorModel(EquipmentSlot slot, A _default) {
+//        A model = (A) (slot == EquipmentSlot.LEGS ? airSuitLegs : airSuitModel);
+//        return model == null ? _default : model;
+//    }
 }

@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AirSuitRenderer implements ArmorRenderer {
-    private static final Identifier TEXTURE = Jellyfishing.id("textures/models/armor/air_suit_layer_1.png");
+    private static final Identifier TEXTURE = Jellyfishing.id("textures/models/armor/air_suit.png");
     private static AirSuitModel airSuitModel;
 
     @Override
@@ -30,4 +30,6 @@ public class AirSuitRenderer implements ArmorRenderer {
 //        airSuitModel.head.visible = slot == EquipmentSlot.HEAD;
         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, airSuitModel, TEXTURE);
     }
+
+
 }
